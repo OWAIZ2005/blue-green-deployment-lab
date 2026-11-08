@@ -12,7 +12,7 @@
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t myapp:v2 .\green'
+                bat 'docker build -t myapp:v2 ./green'
             }
         }
 
@@ -62,3 +62,4 @@
         }
     }
 }
+

@@ -1,24 +1,36 @@
 pipeline {
-    agent any
+    agent {
+        label 'windows'
+    }
 
     stages {
-        stage('Source Code') {
+        stage('Windows Agent Check') {
             steps {
-                echo 'Successfully connected to GitHub!'
-                sh 'ls -la'
+                echo 'Running on Windows Agent!'
+                bat 'hostname'
+                bat 'java --version'
             }
         }
 
-        stage('Build Information') {
+        stage('Docker Check') {
             steps {
-                echo 'Blue-Green Deployment Project'
-                echo 'Preparing Docker and Kubernetes deployment.'
+                bat 'docker --version'
+                bat 'docker ps'
             }
         }
 
-        stage('Deployment Status') {
+        stage('Kubernetes Check') {
             steps {
-                echo 'Jenkins CI/CD pipeline is ready.'
+                bat 'kubectl version --client'
+                bat 'kubectl get nodes'
+                bat 'minikube status'
+            }
+        }
+
+        stage('Deployment Verification') {
+            steps {
+                bat 'kubectl get deployments'
+                bat 'kubectl get pods'
             }
         }
     }
